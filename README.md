@@ -1,2 +1,2 @@
 # alkemyBankBase
-Proyecto Base para Alkemy Bank
+Proyecto Base para Alkemy Bank Kotlin
