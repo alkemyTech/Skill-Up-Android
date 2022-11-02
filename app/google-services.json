@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "857151897158",
+    "project_id": "skillup2-3e407",
+    "storage_bucket": "skillup2-3e407.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:857151897158:android:904d9aba15661addfed447",
+        "android_client_info": {
+          "package_name": "com.Alkemy.alkemybankbase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "857151897158-8fb2h8vt0rhn2tq64bikpj2vl42q0vmr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCsMIfNuM04ohvHsBw7S9uhThQTrnsLRk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "857151897158-8fb2h8vt0rhn2tq64bikpj2vl42q0vmr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
