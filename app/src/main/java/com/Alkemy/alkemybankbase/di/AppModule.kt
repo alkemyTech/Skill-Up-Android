@@ -1,4 +1,4 @@
-package com.Alkemy.alkemybankbase.ui
+package com.Alkemy.alkemybankbase.di
 
 import dagger.Module
 import dagger.Provides
