@@ -10,12 +10,4 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-
-
-
-
-
-
-
-    //hola soy un comentario
 }
