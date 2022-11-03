@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home_page"
+        android:enabled="true"
+        android:icon="@drawable/ic_home"
+        android:title="Home"/>
+    <item
+        android:id="@+id/expense_page"
+        android:enabled="true"
+        android:icon="@drawable/ic_expense"
+        android:title="Gastos"/>
+    <item
+        android:id="@+id/chargeBalance_page"
+        android:enabled="true"
+        android:icon="@drawable/ic_account_balance"
+        android:title="Cargar saldo"/>
+    <item
+        android:id="@+id/movement_page"
+        android:enabled="true"
+        android:icon="@drawable/ic_movement"
+        android:title="Movimientos"/>
+    <item
+        android:id="@+id/send_page"
+        android:enabled="true"
+        android:icon="@drawable/ic_send"
+        android:title="Enviar"/>
+
+</menu>
