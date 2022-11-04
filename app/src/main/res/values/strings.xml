@@ -7,4 +7,7 @@
     <string name="login">Login</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="log_in_with_a_social_account">Log In with a social account</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="login_with_gmail">Login with Gmail</string>
+    <string name="login_with_facebook">Login with Facebook</string>
 </resources>
