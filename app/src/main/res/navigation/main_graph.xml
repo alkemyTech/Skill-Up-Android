@@ -28,4 +28,29 @@
             android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/balanceFragment"
+        android:name="com.Alkemy.alkemybankbase.ui.fragments.BalanceFragment"
+        android:label="fragment_balance"
+        tools:layout="@layout/fragment_balance" />
+    <fragment
+        android:id="@+id/paymentsLoadFragment"
+        android:name="com.Alkemy.alkemybankbase.ui.fragments.PaymentsLoadFragment"
+        android:label="fragment_payments_load"
+        tools:layout="@layout/fragment_payments_load" />
+    <fragment
+        android:id="@+id/sendMoneyFragment"
+        android:name="com.Alkemy.alkemybankbase.ui.fragments.SendMoneyFragment"
+        android:label="fragment_send_money"
+        tools:layout="@layout/fragment_send_money" />
+    <fragment
+        android:id="@+id/topUpBalanceFragment"
+        android:name="com.Alkemy.alkemybankbase.ui.fragments.TopUpBalanceFragment"
+        android:label="fragment_top_up_balance"
+        tools:layout="@layout/fragment_top_up_balance" />
+    <fragment
+        android:id="@+id/transactionsFragment"
+        android:name="com.Alkemy.alkemybankbase.ui.fragments.TransactionsFragment"
+        android:label="fragment_transactions"
+        tools:layout="@layout/fragment_transactions" />
 </navigation>
