@@ -7,7 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.Alkemy.alkemybankbase.R
+
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.Alkemy.alkemybankbase.databinding.FragmentLoginBinding
@@ -47,10 +49,6 @@ class LoginFragment : Fragment() {
                 binding.btnSingIn.isEnabled = enable
             })
 
-        }
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -68,5 +66,7 @@ class LoginFragment : Fragment() {
 
 
     }
+
+}
 
 }
