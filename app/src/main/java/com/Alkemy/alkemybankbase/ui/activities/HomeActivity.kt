@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import com.Alkemy.alkemybankbase.R
 import com.Alkemy.alkemybankbase.databinding.ActivityHomeBinding
 import com.Alkemy.alkemybankbase.ui.fragments.*
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding : ActivityHomeBinding
     override fun onCreate(savedInstanceState: Bundle?) {
