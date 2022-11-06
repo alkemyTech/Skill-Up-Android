@@ -1,60 +1,72 @@
 package com.Alkemy.alkemybankbase.ui.fragments
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.Alkemy.alkemybankbase.R
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import com.Alkemy.alkemybankbase.databinding.FragmentLoginBinding
+import com.Alkemy.alkemybankbase.viewmodels.loginviewmodel.LoginViewModel
+import java.security.cert.TrustAnchor
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [LoginFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class LoginFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    // Declaro las variables de vinculacion de datos
+    private var _binding: FragmentLoginBinding? = null
+    private val binding get() = _binding!!
+
+
+    // Declaro el ViewModel
+    val viewModel by viewModels<LoginViewModel>()
+
+    // Utilizo la funcion Textwatcher para poder controlar el cambio de los textos editables a traves del objeto,
+    val loginTextWatcher = object : TextWatcher {
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
         }
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            //Llamo al metodo de validacion para que se realice la comprobacion en el viewModel, pasando los parametros del email y la contraseña
+            viewModel.isValidateEmailAndPassword(
+                binding.edtEmail.text.toString(),
+                binding.edtPassword.text.toString()
+            )
+
+        }
+
+        override fun afterTextChanged(p0: Editable?) {
+
+            //Aplico el metodo observe para que controlo el ciclo de vida y se habilite o deshabilite
+            //el boton dependendiendo de la variable
+            viewModel.isEnable.observe(viewLifecycleOwner, Observer { enable ->
+                binding.btnSingIn.isEnabled = enable
+            })
+
+        }
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _binding = FragmentLoginBinding.inflate(layoutInflater)
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment LoginFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            LoginFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.edtEmail.addTextChangedListener(loginTextWatcher)
+        binding.edtPassword.addTextChangedListener(loginTextWatcher)
+
+
     }
+
 }
