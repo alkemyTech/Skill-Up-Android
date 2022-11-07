@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.Alkemy.alkemybankbase.databinding.FragmentMovementBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MovementFragment : Fragment() {
     private var _binding : FragmentMovementBinding? = null
     private val binding get() = _binding!!
