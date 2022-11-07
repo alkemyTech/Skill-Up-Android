@@ -1,60 +1,70 @@
 package com.Alkemy.alkemybankbase.ui.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.Alkemy.alkemybankbase.R
+import com.Alkemy.alkemybankbase.core.UserPreferences
+import com.Alkemy.alkemybankbase.databinding.FragmentLoginBinding
+import com.Alkemy.alkemybankbase.presentation.UserViewModel
+import com.Alkemy.alkemybankbase.utils.toast
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [LoginFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class LoginFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+open class LoginFragment : Fragment(R.layout.fragment_login) {
+    private lateinit var binding : FragmentLoginBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private val viewModel : UserViewModel by viewModels()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding = FragmentLoginBinding.bind(view)
+
+        //Mockup
+        binding.edtEmail.setText("juanperez@example.com")
+        binding.edtPassword.setText("abc123")
+
+        events()
+        setupObservers()
+    }
+
+    // Do login
+    private fun events() = with(binding) {
+
+        btnSingIn.setOnClickListener {
+            val email = binding.edtEmail.text.toString()
+            val password = binding.edtPassword.text.toString()
+
+            viewModel.auth(email, password)
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment LoginFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            LoginFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    // Sets Up Login State
+    private fun setupObservers(){
+        viewModel.state.observe(viewLifecycleOwner){ state ->
+            when(state){
+                UserViewModel.LoginState.Init -> Unit
+                is UserViewModel.LoginState.Error -> showError(state.rawResponse)
+                is UserViewModel.LoginState.IsLoading -> showProgress(state.isLoading)
+                is UserViewModel.LoginState.Success -> {
+                    val userRemote = state.user
+                    // TODO Navigate to Home
+                    requireContext().toast("Bienvenido ${userRemote.accessToken}")
                 }
             }
+        }
     }
+
+    // Show error alert dialog if login fails
+    private fun showError(error:String){
+        // TODO Show Error Dialog
+        requireContext().toast(error)
+    }
+
+    // Show progress indicator while loading
+    private fun showProgress(visibility:Boolean){
+        // TODO Show Pregress Indicator
+    }
+
 }
