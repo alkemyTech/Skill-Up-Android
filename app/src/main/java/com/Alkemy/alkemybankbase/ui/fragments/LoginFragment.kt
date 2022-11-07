@@ -10,7 +10,7 @@ import android.view.ViewGroup
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.Navigation
 import com.Alkemy.alkemybankbase.R
 import com.Alkemy.alkemybankbase.databinding.FragmentLoginBinding
 import com.Alkemy.alkemybankbase.viewmodels.loginviewmodel.LoginViewModel
@@ -56,7 +56,7 @@ class LoginFragment : Fragment() {
     // Realizamos un flujo de control en el caso de que se haya habilitado el buton le permitimos el acceso
         if (enable) {
             binding.btnSingIn.setOnClickListener {
-                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+//                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
             }
 
         }
@@ -78,8 +78,17 @@ class LoginFragment : Fragment() {
         binding.edtEmail.addTextChangedListener(loginTextWatcher)
         binding.edtPassword.addTextChangedListener(loginTextWatcher)
 
+        events()
 
     }
+
+    private fun events() = with(binding) {
+
+        tvCreateUser.setOnClickListener {
+            Navigation.findNavController(binding.root).navigate(R.id.action_loginFragment_to_registerFragment)
+        }
+    }
+
 }
 
 
