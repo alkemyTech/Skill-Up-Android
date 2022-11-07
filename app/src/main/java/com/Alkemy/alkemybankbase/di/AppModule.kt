@@ -1,5 +1,6 @@
 package com.Alkemy.alkemybankbase.di
 
+import com.Alkemy.alkemybankbase.repository.WebService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,5 +20,11 @@ object AppModule {
             .baseUrl(apiUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideWebService(retrofit: Retrofit): WebService {
+        return retrofit.create(WebService::class.java)
     }
 }

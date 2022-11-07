@@ -1,93 +1,70 @@
 package com.Alkemy.alkemybankbase.ui.fragments
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import com.Alkemy.alkemybankbase.R
+import com.Alkemy.alkemybankbase.core.UserPreferences
 import com.Alkemy.alkemybankbase.databinding.FragmentLoginBinding
-import com.Alkemy.alkemybankbase.viewmodels.loginviewmodel.LoginViewModel
+import com.Alkemy.alkemybankbase.presentation.UserViewModel
+import com.Alkemy.alkemybankbase.utils.toast
 
 
-class LoginFragment : Fragment() {
+open class LoginFragment : Fragment(R.layout.fragment_login) {
+    private lateinit var binding : FragmentLoginBinding
 
-    // Declaro las variables de vinculacion de datos
-    private var _binding: FragmentLoginBinding? = null
-    private val binding get() = _binding!!
-
-    // Declaro el ViewModel
-    val viewModel by viewModels<LoginViewModel>()
-
-    // Utilizo la funcion Textwatcher para poder controlar el cambio de los textos editables a traves del objeto
-    val loginTextWatcher = object : TextWatcher {
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-        }
-
-        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            //Llamo al metodo de validacion para que se realice la comprobacion en el viewModel, pasando los parametros del email y la contraseña
-            viewModel.isValidateEmailAndPassword(
-                binding.edtEmail.text.toString(),
-                binding.edtPassword.text.toString()
-            )
-        }
-
-        override fun afterTextChanged(p0: Editable?) {
-            //Aplico el metodo observe para que controlo el ciclo de vida y se habilite o deshabilite
-            //el boton dependendiendo de la variable
-            viewModel.isEnable.observe(viewLifecycleOwner, Observer { enable ->
-                binding.btnSingIn.isEnabled = enable
-                navigateUP(enable)
-            })
-        }
-
-
-    }
-
-    //Creamos la funcion de navegacion
-    private fun navigateUP(enable: Boolean) {
-    // Realizamos un flujo de control en el caso de que se haya habilitado el buton le permitimos el acceso
-        if (enable) {
-            binding.btnSingIn.setOnClickListener {
-                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-            }
-
-        }
-    }
-
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentLoginBinding.inflate(layoutInflater)
-        // Inflate the layout for this fragment
-        return binding.root
-    }
+    private val viewModel : UserViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.edtEmail.addTextChangedListener(loginTextWatcher)
-        binding.edtPassword.addTextChangedListener(loginTextWatcher)
+        binding = FragmentLoginBinding.bind(view)
 
+        //Mockup
+        binding.edtEmail.setText("juanperez@example.com")
+        binding.edtPassword.setText("abc123")
 
+        events()
+        setupObservers()
     }
+
+    // Do login
+    private fun events() = with(binding) {
+
+        btnSingIn.setOnClickListener {
+            val email = binding.edtEmail.text.toString()
+            val password = binding.edtPassword.text.toString()
+
+            viewModel.auth(email, password)
+        }
+    }
+
+    // Sets Up Login State
+    private fun setupObservers(){
+        viewModel.state.observe(viewLifecycleOwner){ state ->
+            when(state){
+                UserViewModel.LoginState.Init -> Unit
+                is UserViewModel.LoginState.Error -> showError(state.rawResponse)
+                is UserViewModel.LoginState.IsLoading -> showProgress(state.isLoading)
+                is UserViewModel.LoginState.Success -> {
+                    val userRemote = state.user
+                    // TODO Navigate to Home
+                    requireContext().toast("Bienvenido ${userRemote.accessToken}")
+                }
+            }
+        }
+    }
+
+    // Show error alert dialog if login fails
+    private fun showError(error:String){
+        // TODO Show Error Dialog
+        requireContext().toast(error)
+    }
+
+    // Show progress indicator while loading
+    private fun showProgress(visibility:Boolean){
+        // TODO Show Pregress Indicator
+    }
+
 }
-
-
-
-
-
-
-
-
-
-

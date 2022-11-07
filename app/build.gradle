@@ -31,6 +31,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+        freeCompilerArgs += [
+                '-Xjvm-default=enable'
+        ]
     }
     buildFeatures {
         viewBinding = true
@@ -73,6 +76,8 @@ dependencies {
     kapt 'com.google.dagger:hilt-android-compiler:2.44'
     // Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:31.0.2')
+    // Firebase Auth
+    implementation 'com.google.firebase:firebase-auth-ktx'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
