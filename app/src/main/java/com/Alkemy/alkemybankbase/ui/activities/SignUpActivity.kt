@@ -8,13 +8,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.Alkemy.alkemybankbase.databinding.ActivitySignUpBinding
 import com.Alkemy.alkemybankbase.presentation.SignUpViewModel
 import com.Alkemy.alkemybankbase.utils.afterTextChanged
+import com.google.firebase.analytics.FirebaseAnalytics
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private val viewModel: SignUpViewModel by viewModels()
-
+    private lateinit var firebaseAnalytics : FirebaseAnalytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +23,7 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupObservers()
         setuplistener()
-
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
     }
 
@@ -49,7 +50,19 @@ class SignUpActivity : AppCompatActivity() {
     private fun setuplistener() {
         with(binding) {
             btnSignUp.setOnClickListener {
-                //Todo
+                var bundle = Bundle()
+                bundle.putString("message", "Sign Up Pressed")
+                firebaseAnalytics.logEvent("register_pressed", bundle)
+                //Todo implement function and make call to viewmodel
+                /*
+                    if (llamada a la funcion de registro, es exitosa) {
+                        bundle.putString("message", "Sign Up Succeeded")
+                        firebaseAnalytics.logEvent("sign_up_success", bundle)
+                    } else {
+                        bundle.pugString("message", "Sign Up Failed")
+                        firebaseAnalytics.logEvent("sign_up_error", bundle)
+                    }
+                 */
             }
             etEmail.afterTextChanged {
                 viewModel.validateForm(
