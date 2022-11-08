@@ -1,6 +1,6 @@
 package com.Alkemy.alkemybankbase.presentation
 
-import android.util.Patterns
+import androidx.core.util.PatternsCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -20,7 +20,7 @@ class SignUpViewModel @Inject constructor() : ViewModel() {
     //Check email & password
     fun validateForm(email: String, password: String, confirmPassword: String) {
         // check if email is valid with pattern
-        val isEmailValid = Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        val isEmailValid = PatternsCompat.EMAIL_ADDRESS.matcher(email).matches()
         // check if password is valid with pattern
         val passwordPattern = "^(?=.*[0-9])(?=.*[A-Z])(?=\\S+\$).{8,}"
         val pattern = Pattern.compile(passwordPattern)
