@@ -3,6 +3,7 @@ package com.Alkemy.alkemybankbase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.VIEW_MODEL_STORE_OWNER_KEY
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -14,7 +15,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val splash = installSplashScreen()
         super.onCreate(savedInstanceState)
+
+        Thread.sleep(3000)
+        splash.setKeepOnScreenCondition { false }
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
+import androidx.lifecycle.Observer
 import com.Alkemy.alkemybankbase.R
 import com.Alkemy.alkemybankbase.core.UserPreferences
 import com.Alkemy.alkemybankbase.databinding.FragmentLoginBinding
@@ -38,6 +40,11 @@ open class LoginFragment : Fragment(R.layout.fragment_login) {
 
             viewModel.auth(email, password)
         }
+
+        tvCreateUser.setOnClickListener {
+            Navigation.findNavController(binding.root).navigate(R.id.action_loginFragment_to_registerFragment)
+        }
+
     }
 
     // Sets Up Login State
