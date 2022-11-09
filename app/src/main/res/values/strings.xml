@@ -13,4 +13,5 @@
     <string name="fragment_register_validation_password">ingrese una contraseña</string>
     <string name="fragment_login_valid_email">Ingresa correo</string>
     <string name="fragment_login_valid_pwd">Ingresa contraseña</string>
+    <string name="fragment_register_invalid_password_confirmation">Passwords are not the same</string>
 </resources>

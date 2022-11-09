@@ -1,12 +1,15 @@
 package com.Alkemy.alkemybankbase.ui.fragments.login
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.Alkemy.alkemybankbase.R
 import com.Alkemy.alkemybankbase.databinding.FragmentLoginBinding
+import com.Alkemy.alkemybankbase.utils.controlEmailAndPassword
 import com.Alkemy.alkemybankbase.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,38 +26,38 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding = FragmentLoginBinding.bind(view)
 
         //Mockup
-        binding.edtEmailLogin.setText("prueba3@alkemy.com")
-        binding.edtPasswordLogin.setText("123456")
+        //binding.edtEmailLogin.setText("prueba3@alkemy.com")
+        //binding.edtPasswordLogin.setText("123456")
 
         events()
         setupObservers()
     }
 
-    // Do login
     private fun events() = with(binding) {
 
+        // Validates Email and Password when inputs are changed and enables
+        // Sign In Button when both fields are validated
+        val textWatcher: TextWatcher = object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+            override fun beforeTextChanged(s: CharSequence, start: Int,
+                                           count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int,
+                                       before: Int, count: Int) {
+                btnSingIn.isEnabled = controlEmailAndPassword(edtEmailLogin.text.toString(),edtPasswordLogin.text.toString())
+            }
+        }
+        edtEmailLogin.addTextChangedListener(textWatcher)
+        edtPasswordLogin.addTextChangedListener(textWatcher)
+
+        // Does Login when Sign In Button is clicked
         btnSingIn.setOnClickListener {
             val email = binding.edtEmailLogin.text.toString()
             val password = binding.edtPasswordLogin.text.toString()
 
-            if (email.isEmpty()) {
-                tilEmailLogin.error = getString(R.string.fragment_login_valid_email)
-                return@setOnClickListener
-            }
-
-            if (password.isEmpty()) {
-                tilPasswordLogin.error = getString(R.string.fragment_login_valid_pwd)
-                return@setOnClickListener
-            }
-
             viewModel.auth(email, password)
-
-            val preferences = requireContext().getSharedPreferences("PREFERENCES_USER", 0).edit()
-            preferences.putString("TOKEN","demo")
-            preferences.apply()
-
         }
 
+        // Navigates to Register
         tvCreateUser.setOnClickListener {
             Navigation.findNavController(binding.root)
                 .navigate(R.id.action_loginFragment_to_registerFragment)
