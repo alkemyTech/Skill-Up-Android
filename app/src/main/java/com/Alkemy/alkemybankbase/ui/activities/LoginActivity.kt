@@ -1,18 +1,27 @@
 package com.Alkemy.alkemybankbase.ui.activities
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.lifecycleScope
 import com.Alkemy.alkemybankbase.R
+import com.Alkemy.alkemybankbase.data.local.SessionManager
+import com.Alkemy.alkemybankbase.data.model.LoginResponse
 import com.Alkemy.alkemybankbase.databinding.ActivityLoginBinding
 import com.Alkemy.alkemybankbase.databinding.ActivitySignUpBinding
 import com.Alkemy.alkemybankbase.presentation.LoginViewModel
 import com.Alkemy.alkemybankbase.presentation.SignUpViewModel
+import com.Alkemy.alkemybankbase.utils.Resource
 import com.Alkemy.alkemybankbase.utils.afterTextChanged
 import com.google.firebase.analytics.FirebaseAnalytics
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
@@ -26,6 +35,12 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
         setupObservers()
         setuplistener()
+
+        val token = SessionManager.getToken(this)
+        if (!token.isNullOrBlank()) {
+            navigateToHome()
+        }
+
         firebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
     }
@@ -35,10 +50,6 @@ class LoginActivity : AppCompatActivity() {
         viewModel.isFormValidLiveData.observe(this) {
             // enable or disable button
             binding.btnSignUp.isEnabled = it
-        }
-        viewModel.confirmPasswordErrorResourceIdLiveData.observe(this) { resId ->
-            //show confirm password error
-            binding.etConfirmPassword.error = getString(resId)
         }
         viewModel.emailErrorResourceIdLiveData.observe(this) { resId ->
             //show email error
@@ -52,44 +63,44 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setuplistener() {
         with(binding) {
-            btnSignUp.setOnClickListener {
+            btnLogin.setOnClickListener {
                 var bundle = Bundle()
-                bundle.putString("message", "Sign Up Pressed")
-                firebaseAnalytics.logEvent("register_pressed", bundle)
-                //Todo implement function and make call to viewmodel
-                /*
-                    if (llamada a la funcion de registro, es exitosa) {
-                        bundle.putString("message", "Sign Up Succeeded")
-                        firebaseAnalytics.logEvent("sign_up_success", bundle)
-                    } else {
-                        bundle.pugString("message", "Sign Up Failed")
-                        firebaseAnalytics.logEvent("sign_up_error", bundle)
+                bundle.putString("message", "Login Pressed")
+                firebaseAnalytics.logEvent("log_in_pressed", bundle)
+
+                lifecycleScope.launch {
+                    viewModel.loginUser(this@LoginActivity,email = binding.etEmail.text.toString(), password = binding.etPassword.text.toString())
+
+                    if (!viewModel.currentResponse.accessToken.isNullOrEmpty()) {
+                        bundle.putString("message", "Login Succeeded")
+                        firebaseAnalytics.logEvent("log_in_success", bundle)
+                        navigateToHome()
+                    } else if(!viewModel.errorResponse.isNullOrEmpty()){
+                        bundle.putString("message", "Login Failed")
+                        firebaseAnalytics.logEvent("log_in_error", bundle)
                     }
-                 */
+                }
+
+
             }
             etEmail.afterTextChanged {
                 viewModel.validateForm(
                     etEmail.text.toString(),
-                    etPassword.text.toString(),
-                    etConfirmPassword.text.toString()
+                    etPassword.text.toString()
                 )
             }
             etPassword.afterTextChanged {
                 viewModel.validateForm(
                     etEmail.text.toString(),
-                    etPassword.text.toString(),
-                    etConfirmPassword.text.toString()
-                )
-            }
-            etConfirmPassword.afterTextChanged {
-                viewModel.validateForm(
-                    etEmail.text.toString(),
-                    etPassword.text.toString(),
-                    etConfirmPassword.text.toString()
+                    etPassword.text.toString()
                 )
             }
             btnSignUp.isEnabled = false
         }
+    }
 
+    private fun navigateToHome(){
+        val intent = Intent(this,HomeActivity::class.java)
+        startActivity(intent)
     }
 }
