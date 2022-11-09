@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
 import com.Alkemy.alkemybankbase.data.local.SessionManager
 import com.Alkemy.alkemybankbase.databinding.ActivityLoginBinding
@@ -69,6 +70,10 @@ class LoginActivity : AppCompatActivity() {
                         navigateToHome()
                     } else if(viewModel.loginError.isNotBlank()){
                         //TODO: Show AlertDialog
+                        var dialog = AlertDialog.Builder(this@LoginActivity)
+                        dialog.setTitle("No autorizado")
+                        dialog.setMessage(viewModel.loginError)
+                        dialog.show()
                         bundle.putString("message", "Login Failed")
                         firebaseAnalytics.logEvent("log_in_error", bundle)
                     }
