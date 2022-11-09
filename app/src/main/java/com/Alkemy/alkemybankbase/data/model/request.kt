@@ -9,3 +9,8 @@ data class UserRegisterRequest(
     val roleId: Int? = 2, //"roleId": 2
     val points: Int? = 50 //"points": 50
 )
+
+data class UserLoginRequest(
+    val email: String,
+    val password: String
+)

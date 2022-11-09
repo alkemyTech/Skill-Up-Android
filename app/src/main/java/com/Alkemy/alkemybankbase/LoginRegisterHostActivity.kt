@@ -1,27 +1,22 @@
 package com.Alkemy.alkemybankbase
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.VIEW_MODEL_STORE_OWNER_KEY
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
-import com.Alkemy.alkemybankbase.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityMainBinding
+@AndroidEntryPoint
+class LoginRegisterHostActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val splash = installSplashScreen()
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_login_register_host)
 
         Thread.sleep(3000)
         splash.setKeepOnScreenCondition { false }
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        /*binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         //Initialize navHostFragment and navController
@@ -30,11 +25,11 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationView.setupWithNavController(navController)
 
         //Method to handler the bottom Navigation visivility
-        observeDestinationChangeListener(navController)
+        observeDestinationChangeListener(navController)*/
 
     }
 
-    private fun observeDestinationChangeListener(navController: NavController) {
+    /*private fun observeDestinationChangeListener(navController: NavController) {
         navController.addOnDestinationChangedListener {controller, destination, arguments ->
             when(destination.id){
 
@@ -63,5 +58,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-    }
+    }*/
+
+
 }

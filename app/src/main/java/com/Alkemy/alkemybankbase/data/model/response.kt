@@ -9,6 +9,10 @@ data class UserRegisterResponse (
     val points: Int //"points": 50
 )
 
+data class UserLoginResponse(
+    val accessToken:String
+)
+
 data class ErrorResponse(
     val error: String, //"error": "No autorizado"
     val status:Int //"status": 401

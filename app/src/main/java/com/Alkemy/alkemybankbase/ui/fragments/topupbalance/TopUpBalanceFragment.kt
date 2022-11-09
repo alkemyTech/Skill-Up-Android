@@ -1,4 +1,4 @@
-package com.Alkemy.alkemybankbase.ui.fragments
+package com.Alkemy.alkemybankbase.ui.fragments.topupbalance
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -11,4 +11,6 @@
     <string name="fragment_register_validation_surname">ingrese su apellido</string>
     <string name="fragment_register_validation_email_register">ingrese su correo</string>
     <string name="fragment_register_validation_password">ingrese una contraseña</string>
+    <string name="fragment_login_valid_email">Ingresa correo</string>
+    <string name="fragment_login_valid_pwd">Ingresa contraseña</string>
 </resources>
