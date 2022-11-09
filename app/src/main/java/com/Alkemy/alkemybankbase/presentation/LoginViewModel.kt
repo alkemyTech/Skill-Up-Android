@@ -12,11 +12,28 @@ import com.Alkemy.alkemybankbase.data.model.LoginInput
 import com.Alkemy.alkemybankbase.data.model.LoginResponse
 import com.Alkemy.alkemybankbase.repository.LoginRepository
 import com.Alkemy.alkemybankbase.utils.Resource
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 import java.util.regex.Pattern
 import javax.inject.Inject
+
+
+import android.content.Intent
+import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.View
+import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat.startActivityForResult
+import com.Alkemy.alkemybankbase.databinding.ActivityLoginBinding
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val loginRepo : LoginRepository) : ViewModel() {
@@ -26,6 +43,7 @@ class LoginViewModel @Inject constructor(private val loginRepo : LoginRepository
     lateinit var loginResponse : LoginResponse
     var loginError : String = ""
     val isLoading = MutableLiveData<Boolean>()
+
 
     //Check email & password
     fun validateForm(email: String, password: String) {
@@ -66,5 +84,17 @@ class LoginViewModel @Inject constructor(private val loginRepo : LoginRepository
             }
             else -> throw IllegalArgumentException("Illegal Result")
         }
+    }
+
+    fun loginGoogle(context:Context) : GoogleSignInClient{
+        val googleConf = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken((R.string.default_web_client_id.toString()))
+            .requestEmail()
+            .build()
+
+        val googleClient = GoogleSignIn.getClient(context, googleConf)
+        googleClient.signOut()
+        return googleClient
+        //startActivityForResult(googleClient.signInIntent,GOOGLE_SIGN_IN)
     }
 }

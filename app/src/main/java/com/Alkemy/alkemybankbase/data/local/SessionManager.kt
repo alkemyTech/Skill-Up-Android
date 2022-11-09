@@ -16,7 +16,7 @@ object SessionManager {
         return getString(context, USER_TOKEN)
     }
 
-    private fun saveString(context: Context, key: String, value: String) {
+    fun saveString(context: Context, key: String, value: String) {
         val prefs : SharedPreferences = context.getSharedPreferences(context.getString(R.string.app_name),
         Context.MODE_PRIVATE)
         val editor = prefs.edit()
