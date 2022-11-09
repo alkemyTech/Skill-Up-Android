@@ -7,4 +7,8 @@
     <string name="fagment_login_help_password">Ingrese contraseña</string>
     <string name="text_button_fragment_login">INGRESAR</string>
     <string name="fragment_register_title">CREAR CUENTA</string>
+    <string name="fragment_register_validation_names">ingrese su nombre</string>
+    <string name="fragment_register_validation_surname">ingrese su apellido</string>
+    <string name="fragment_register_validation_email_register">ingrese su correo</string>
+    <string name="fragment_register_validation_password">ingrese una contraseña</string>
 </resources>

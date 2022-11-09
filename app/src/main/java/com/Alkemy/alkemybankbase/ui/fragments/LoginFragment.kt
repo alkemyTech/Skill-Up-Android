@@ -34,8 +34,8 @@ class LoginFragment : Fragment() {
 
             //Llamo al metodo de validacion para que se realice la comprobacion en el viewModel, pasando los parametros del email y la contraseña
             viewModel.isValidateEmailAndPassword(
-                binding.edtEmail.text.toString(),
-                binding.edtPassword.text.toString()
+                binding.edtEmailLogin.text.toString(),
+                binding.edtPasswordLogin.text.toString()
             )
         }
 
@@ -75,8 +75,8 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.edtEmail.addTextChangedListener(loginTextWatcher)
-        binding.edtPassword.addTextChangedListener(loginTextWatcher)
+        binding.edtEmailLogin.addTextChangedListener(loginTextWatcher)
+        binding.edtPasswordLogin.addTextChangedListener(loginTextWatcher)
 
         events()
 
