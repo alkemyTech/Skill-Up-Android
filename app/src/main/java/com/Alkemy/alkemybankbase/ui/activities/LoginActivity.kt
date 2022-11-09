@@ -78,6 +78,22 @@ class LoginActivity : AppCompatActivity() {
                         firebaseAnalytics.logEvent("log_in_error", bundle)
                     }
                 }
+                btnFacebook.setOnClickListener{
+                    var bundle = Bundle()
+                    bundle.putString("message", "Login Facebook Pressed")
+                    firebaseAnalytics.logEvent("facebook_pressed", bundle)
+
+                }
+                btnGmail.setOnClickListener{
+                    var bundle = Bundle()
+                    bundle.putString("message", "Login Gmail Pressed")
+                    firebaseAnalytics.logEvent("gmail_pressed", bundle)
+                }
+                btnSignUp.setOnClickListener {
+                    var bundle = Bundle()
+                    bundle.putString("message", "SignUp Pressed")
+                    firebaseAnalytics.logEvent("sign_up_pressed", bundle)
+                }
             }
             etEmail.afterTextChanged {
                 viewModel.validateForm(

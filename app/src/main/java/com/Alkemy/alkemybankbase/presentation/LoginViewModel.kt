@@ -61,10 +61,6 @@ class LoginViewModel @Inject constructor(private val loginRepo : LoginRepository
                 isLoading.value = false
             }
             is Resource.Failure -> {
-                Log.d("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",loginResult.toString())
-                Log.d("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",loginResult::class.simpleName.toString())
-                Log.d("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",loginResult.toString())
-                Log.d("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",loginResult.exception.toString())
                 loginError = loginResult.toString()
                 isLoading.value = false
             }
