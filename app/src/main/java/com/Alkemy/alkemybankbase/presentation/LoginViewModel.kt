@@ -14,6 +14,7 @@ import com.Alkemy.alkemybankbase.repository.LoginRepository
 import com.Alkemy.alkemybankbase.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.lang.IllegalArgumentException
 import java.util.regex.Pattern
 import javax.inject.Inject
 
@@ -22,9 +23,9 @@ class LoginViewModel @Inject constructor(private val loginRepo : LoginRepository
     val emailErrorResourceIdLiveData = MutableLiveData<Int>()
     val passwordErrorResourceIdLiveData = MutableLiveData<Int>()
     val isFormValidLiveData = MutableLiveData<Boolean>()
-    lateinit var currentResponse : LoginResponse
-    lateinit var errorResponse : String
-
+    lateinit var loginResponse : LoginResponse
+    var loginError : String = ""
+    val isLoading = MutableLiveData<Boolean>()
 
     //Check email & password
     fun validateForm(email: String, password: String) {
@@ -48,23 +49,21 @@ class LoginViewModel @Inject constructor(private val loginRepo : LoginRepository
 
     suspend fun loginUser(context: Context, email:String, password:String){
         var loginResult: Resource<LoginResponse>
-
-            val loginInput = LoginInput(email = email,
-                password = password)
-            loginResult = loginRepo.loginUser(loginInput = loginInput)
-            Log.d("******************************************************",loginResult.toString())
-            Log.d("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",(loginResult as Resource.Success<LoginResponse>).data.toString())
-            Log.d("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",(loginResult as Resource.Success<LoginResponse>).data.accessToken)
-            if(loginResult is Resource.Success){
-                currentResponse = (loginResult as Resource.Success<LoginResponse>).data
-                SessionManager.saveAuthToken(context,
-                    (loginResult as Resource.Success<LoginResponse>).data.accessToken)
+        isLoading.value = true
+        val loginInput = LoginInput(email = email,
+            password = password)
+        loginResult = loginRepo.loginUser(loginInput = loginInput)
+        when(loginResult){
+            is Resource.Success -> {
+                loginResponse = loginResult.data
+                SessionManager.saveAuthToken(context, loginResult.data.accessToken)
+                isLoading.value = false
             }
-            if(loginResult is Resource.Failure){
-                errorResponse = (loginResult as Resource.Failure).toString()
+            is Resource.Failure -> {
+                loginError = loginResult.toString()
+                isLoading.value = false
             }
-            Log.d("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^", loginResult::class.simpleName.toString())
-
-
+            else -> throw IllegalArgumentException("Illegal Result")
+        }
     }
 }
