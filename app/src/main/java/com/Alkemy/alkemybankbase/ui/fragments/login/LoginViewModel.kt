@@ -1,43 +1,57 @@
-package com.Alkemy.alkemybankbase.presentation
+package com.Alkemy.alkemybankbase.ui.fragments.login
 
-import androidx.lifecycle.*
-import com.Alkemy.alkemybankbase.core.UserPreferences
-import com.Alkemy.alkemybankbase.data.model.LoginRequest
-import com.Alkemy.alkemybankbase.data.model.UserRemote
-import com.Alkemy.alkemybankbase.repository.WebService
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.Alkemy.alkemybankbase.domain.UserLogin
+import com.Alkemy.alkemybankbase.usescases.RequestAuth
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class UserViewModel: ViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject
+constructor(private val requestAuth: RequestAuth) : ViewModel() {
+
     private val _state = MutableLiveData<LoginState>(LoginState.Init)
     val state: LiveData<LoginState> get() = _state
 
-    private lateinit var userPreferences: UserPreferences
+    fun auth(email: String, password: String) {
 
-    fun auth(email:String, password:String){
         viewModelScope.launch {
 
             _state.value = LoginState.IsLoading(true)
 
             try {
                 val response = withContext(Dispatchers.IO) {
-                    WebService.build().loginUser(LoginRequest(email, password))
+                    requestAuth(email, password)
                 }
-                if (response.isSuccessful) {
+
+                response.fold(
+                    { error ->
+                        _state.value = LoginState.Error(error.toString())
+                    },
+                    { user ->
+                        _state.value = LoginState.Success(user)
+                    }
+                )
+
+                /*if (response.isSuccessful) {
                     val response = response.body()
                     response?.let {
                         if (it.accessToken != null) {
-                            _state.value = LoginState.Success(UserRemote(it.accessToken))
+                            _state.value = LoginState.Success(UserRemoteResponse(it.accessToken))
                             userPreferences.saveAuthToken(it.accessToken)
-                        }
-                        else {
+                        } else {
                             _state.value = LoginState.Error(it.error!!)
                         }
                     }
                 } else {
                     _state.value = LoginState.Error(response.toString())
-                }
+                }*/
             } catch (ex: Exception) {
                 _state.value = LoginState.Error(ex.message.toString())
             } finally {
@@ -51,7 +65,7 @@ class UserViewModel: ViewModel() {
         object Init : LoginState()
         data class IsLoading(val isLoading: Boolean) : LoginState()
         data class Error(val rawResponse: String) : LoginState()
-        data class Success(val user: UserRemote) : LoginState()
+        data class Success(val user: UserLogin) : LoginState()
 
     }
 }

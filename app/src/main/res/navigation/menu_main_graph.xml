@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/balanceFragment"
-        android:name="com.Alkemy.alkemybankbase.ui.fragments.BalanceFragment"
+        android:name="com.Alkemy.alkemybankbase.ui.fragments.balance.BalanceFragment"
         android:label="fragment_balance"
         tools:layout="@layout/fragment_balance" />
     <fragment
         android:id="@+id/homeFragment2"
-        android:name="com.Alkemy.alkemybankbase.ui.fragments.HomeFragment"
+        android:name="com.Alkemy.alkemybankbase.ui.fragments.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
@@ -22,12 +22,12 @@
         tools:layout="@layout/fragment_payments_load" />
     <fragment
         android:id="@+id/sendMoneyFragment2"
-        android:name="com.Alkemy.alkemybankbase.ui.fragments.SendMoneyFragment"
+        android:name="com.Alkemy.alkemybankbase.ui.fragments.sendmoney.SendMoneyFragment"
         android:label="fragment_send_money"
         tools:layout="@layout/fragment_send_money" />
     <fragment
         android:id="@+id/topUpBalanceFragment2"
-        android:name="com.Alkemy.alkemybankbase.ui.fragments.TopUpBalanceFragment"
+        android:name="com.Alkemy.alkemybankbase.ui.fragments.topupbalance.TopUpBalanceFragment"
         android:label="fragment_top_up_balance"
         tools:layout="@layout/fragment_top_up_balance" />
     <fragment

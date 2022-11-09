@@ -1,10 +1,10 @@
 package com.Alkemy.alkemybankbase.usescases
 
-class RequestAuth {
+import com.Alkemy.alkemybankbase.data.repository.UserRepository
+import javax.inject.Inject
 
-    suspend operator fun invoke(email:String, password:String){
+class RequestAuth @Inject constructor(private val userRepository: UserRepository) {
 
-    }
-
+    suspend operator fun invoke(email:String, password:String) = userRepository.loginUser(email,password)
 
 }

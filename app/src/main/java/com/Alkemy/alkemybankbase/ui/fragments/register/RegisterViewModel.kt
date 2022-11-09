@@ -1,4 +1,4 @@
-package com.Alkemy.alkemybankbase.ui.register
+package com.Alkemy.alkemybankbase.ui.fragments.register
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -22,8 +22,6 @@ class RegisterViewModel @Inject constructor(private val registerUser: RegisterUs
 
     private val _state = MutableLiveData<RegisterUserState>(RegisterUserState.Init)
     val state: MutableLiveData<RegisterUserState> get() = _state
-
-    val requestAuth = RequestAuth()
 
     fun createUsuario(request: UserRegisterRequest) {
 

@@ -1,4 +1,4 @@
-package com.Alkemy.alkemybankbase.ui.splash
+package com.Alkemy.alkemybankbase.ui.fragments.splash
 
 import android.os.Bundle
 import android.os.Handler

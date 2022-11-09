@@ -1,4 +1,4 @@
-package com.Alkemy.alkemybankbase.ui.register
+package com.Alkemy.alkemybankbase.ui.fragments.register
 
 import android.os.Bundle
 import android.view.View
