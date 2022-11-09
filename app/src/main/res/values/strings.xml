@@ -13,4 +13,13 @@
     <string name="email_error">Enter a valid Email</string>
     <string name="confirm_password_error">Passwords are not the same</string>
     <string name="password_error">Password must have at least 8 characters, 1 uppercase and 1 number</string>
+    <string name="fecha">Fecha</string>
+    <string name="concepto">Concepto</string>
+    <string name="importe">Importe</string>
+    <string name="you_don_t_have_any_transaction">You don\'t have any transaction</string>
+    <string name="ultimos_movimientos">Ultimos movimientos</string>
+    <string name="ver_m_s">Ver más</string>
+    <string name="_0_00">$0.00</string>
+    <string name="balance">Balance</string>
+    <string name="cero">$0.00</string>
 </resources>
