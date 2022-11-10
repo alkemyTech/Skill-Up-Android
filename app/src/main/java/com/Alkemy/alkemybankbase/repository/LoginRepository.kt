@@ -9,9 +9,11 @@ import retrofit2.Response
 import javax.inject.Inject
 
 @ActivityScoped
-class LoginRepository @Inject constructor(private val apiService: ApiService) {
-
-    suspend fun loginUser(loginInput: LoginInput) : Resource<LoginResponse>{
+class LoginRepository @Inject constructor(private val apiService: ApiService) : LoginRepo{
+    /***********************************************************
+    IMPLEMENTATIONS GO HERE, MAKE SURE TO USE OVERRIDE
+     ************************************************************/
+    override suspend fun loginUser(loginInput: LoginInput) : Resource<LoginResponse>{
         val resp = try{
             apiService.loginUser(loginInput)
         }catch(e:Exception){

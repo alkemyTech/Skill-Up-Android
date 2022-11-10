@@ -5,12 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.Alkemy.alkemybankbase.R
+import com.Alkemy.alkemybankbase.repository.LoginRepo
+import com.Alkemy.alkemybankbase.repository.SignUpRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import java.util.regex.Pattern
 import javax.inject.Inject
 
 @HiltViewModel
-class SignUpViewModel @Inject constructor() : ViewModel() {
+class SignUpViewModel @Inject constructor(private val signupRepo : SignUpRepo) : ViewModel() {
+
     val emailErrorResourceIdLiveData = MutableLiveData<Int>()
     val passwordErrorResourceIdLiveData = MutableLiveData<Int>()
     val confirmPasswordErrorResourceIdLiveData = MutableLiveData<Int>()
