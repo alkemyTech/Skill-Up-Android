@@ -1,42 +1,25 @@
 package com.Alkemy.alkemybankbase.presentation
 
 import android.content.Context
-import android.util.Log
 import androidx.core.util.PatternsCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.Alkemy.alkemybankbase.R
 import com.Alkemy.alkemybankbase.data.local.SessionManager
 import com.Alkemy.alkemybankbase.data.model.LoginInput
 import com.Alkemy.alkemybankbase.data.model.LoginResponse
-import com.Alkemy.alkemybankbase.repository.LoginRepository
 import com.Alkemy.alkemybankbase.utils.Resource
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 import java.util.regex.Pattern
 import javax.inject.Inject
-
-
-import android.content.Intent
-import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.view.View
-import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat.startActivityForResult
-import com.Alkemy.alkemybankbase.databinding.ActivityLoginBinding
+import com.Alkemy.alkemybankbase.repository.LoginRepo
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.GoogleAuthProvider
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val loginRepo : LoginRepository) : ViewModel() {
+class LoginViewModel @Inject constructor(private val loginRepo : LoginRepo) : ViewModel() {
     val emailErrorResourceIdLiveData = MutableLiveData<Int>()
     val passwordErrorResourceIdLiveData = MutableLiveData<Int>()
     val isFormValidLiveData = MutableLiveData<Boolean>()
