@@ -1,15 +1,14 @@
-package com.Alkemy.alkemybankbase.repository
+package com.Alkemy.alkemybankbase.repository.login
 
 import com.Alkemy.alkemybankbase.data.model.LoginInput
 import com.Alkemy.alkemybankbase.data.model.LoginResponse
 import com.Alkemy.alkemybankbase.data.remote.ApiService
 import com.Alkemy.alkemybankbase.utils.Resource
 import dagger.hilt.android.scopes.ActivityScoped
-import retrofit2.Response
 import javax.inject.Inject
 
 @ActivityScoped
-class LoginRepository @Inject constructor(private val apiService: ApiService) : LoginRepo{
+class DefaultLoginRepository @Inject constructor(private val apiService: ApiService) : LoginRepository {
     /***********************************************************
     IMPLEMENTATIONS GO HERE, MAKE SURE TO USE OVERRIDE
      ************************************************************/

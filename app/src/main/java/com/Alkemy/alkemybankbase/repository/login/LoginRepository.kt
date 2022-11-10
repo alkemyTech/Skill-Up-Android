@@ -1,10 +1,10 @@
-package com.Alkemy.alkemybankbase.repository
+package com.Alkemy.alkemybankbase.repository.login
 
 import com.Alkemy.alkemybankbase.data.model.LoginInput
 import com.Alkemy.alkemybankbase.data.model.LoginResponse
 import com.Alkemy.alkemybankbase.utils.Resource
 
-interface LoginRepo {
+interface LoginRepository {
     /***********************************************************
     JUST WRITE EMPTY FUNCTIONS WITH NO REAL IMPLEMENTATIONS
      ************************************************************/

@@ -1,9 +1,11 @@
-package com.Alkemy.alkemybankbase.repository
+package com.Alkemy.alkemybankbase.repository.charge
 
 import com.Alkemy.alkemybankbase.data.remote.ApiService
+import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
 
-class CargaRepository @Inject constructor(private val apiService: ApiService) : CargaRepo{
+@ActivityScoped
+class DefaultChargeRepository @Inject constructor(private val apiService: ApiService) : ChargeRepository {
     /***********************************************************
     IMPLEMENTATIONS GO HERE, MAKE SURE TO USE OVERRIDE
      ************************************************************/

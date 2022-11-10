@@ -1,6 +1,8 @@
 package com.Alkemy.alkemybankbase.repository
 
-class FakeEnviarRepository : EnviarRepo {
+import com.Alkemy.alkemybankbase.repository.send.SendRepository
+
+class FakeEnviarRepository : SendRepository {
     /*
     THE ONLY FUNCTION THAT WILL BE TESTED IS A FORM VALIDATION.
     THE IMPLEMENTATION OF THE FUNCTIONS IN THIS CLASS WILL HAVE

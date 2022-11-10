@@ -1,8 +1,8 @@
-package com.Alkemy.alkemybankbase.repository
+package com.Alkemy.alkemybankbase.repository.charge
 
-interface GastosRepo {
+interface ChargeRepository {
     /***********************************************************
-    JUST WRITE EMPTY FUNCTIONS WITH NO REAL IMPLEMENTATIONS
+        JUST WRITE EMPTY FUNCTIONS WITH NO REAL IMPLEMENTATIONS
      ************************************************************/
 
     /*Unit Tests should not have external dependencies.
