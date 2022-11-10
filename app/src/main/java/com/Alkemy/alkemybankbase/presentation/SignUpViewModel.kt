@@ -4,7 +4,7 @@ import androidx.core.util.PatternsCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.Alkemy.alkemybankbase.R
-import com.Alkemy.alkemybankbase.repository.SignUpRepo
+import com.Alkemy.alkemybankbase.repository.singup.SignUpRepository
 import com.Alkemy.alkemybankbase.data.model.User
 import com.Alkemy.alkemybankbase.data.model.UserResponse
 import com.Alkemy.alkemybankbase.utils.Resource
@@ -14,7 +14,7 @@ import java.util.regex.Pattern
 import javax.inject.Inject
 
 @HiltViewModel
-class SignUpViewModel @Inject constructor(private val signupRepo : SignUpRepo) : ViewModel() {
+class SignUpViewModel @Inject constructor(private val signupRepo : SignUpRepository) : ViewModel() {
 
     val firstnameErrorResourceLiveData = MutableLiveData<Int>()
     val lastnameErrorResourceLiveData = MutableLiveData<Int>()

@@ -61,8 +61,7 @@ class SignUpActivity : AppCompatActivity() {
             binding.etPassword.error = getString(resId)
         }
         viewModel.isLoading.observe(this) {
-            if(it) showLoading()
-            else stopLoading()
+            binding.prgbar.visibility = if (it) View.VISIBLE else View.GONE
         }
     }
 
@@ -162,17 +161,10 @@ class SignUpActivity : AppCompatActivity() {
         builder.setTitle(title)
         builder.setMessage(message)
         builder.setOnDismissListener {
+            it.dismiss()
         }
         val dialog: AlertDialog = builder.create()
         dialog.show()
-    }
-
-    private fun showLoading() {
-        binding.prgbar.visibility = View.VISIBLE
-    }
-
-    private fun stopLoading() {
-        binding.prgbar.visibility = View.GONE
     }
 }
 

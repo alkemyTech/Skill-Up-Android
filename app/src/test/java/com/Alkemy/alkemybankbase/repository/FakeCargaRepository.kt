@@ -1,6 +1,8 @@
 package com.Alkemy.alkemybankbase.repository
 
-class FakeCargaRepository : CargaRepo {
+import com.Alkemy.alkemybankbase.repository.charge.ChargeRepository
+
+class FakeCargaRepository : ChargeRepository {
     /*
     THE ONLY FUNCTION THAT WILL BE TESTED IS A FORM VALIDATION.
     THE IMPLEMENTATION OF THE FUNCTIONS IN THIS CLASS WILL HAVE

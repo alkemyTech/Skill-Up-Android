@@ -14,12 +14,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import java.lang.IllegalArgumentException
 import java.util.regex.Pattern
 import javax.inject.Inject
-import com.Alkemy.alkemybankbase.repository.LoginRepo
+import com.Alkemy.alkemybankbase.repository.login.LoginRepository
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val loginRepo : LoginRepo) : ViewModel() {
+class LoginViewModel @Inject constructor(private val loginRepo : LoginRepository) : ViewModel() {
     val emailErrorResourceIdLiveData = MutableLiveData<Int>()
     val passwordErrorResourceIdLiveData = MutableLiveData<Int>()
     val isFormValidLiveData = MutableLiveData<Boolean>()

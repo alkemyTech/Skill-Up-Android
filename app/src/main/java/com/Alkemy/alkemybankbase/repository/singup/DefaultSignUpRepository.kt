@@ -1,4 +1,4 @@
-package com.Alkemy.alkemybankbase.repository
+package com.Alkemy.alkemybankbase.repository.singup
 
 import com.Alkemy.alkemybankbase.data.model.User
 import com.Alkemy.alkemybankbase.data.model.UserResponse
@@ -9,7 +9,7 @@ import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
 
 @ActivityScoped
-class SignUpRepository @Inject constructor(private val apiService:ApiService) : SignUpRepo {
+class DefaultSignUpRepository @Inject constructor(private val apiService:ApiService) : SignUpRepository {
     /***********************************************************
     IMPLEMENTATIONS GO HERE, MAKE SURE TO USE OVERRIDE
      ************************************************************/

@@ -1,6 +1,6 @@
-package com.Alkemy.alkemybankbase.repository
+package com.Alkemy.alkemybankbase.repository.send
 
-interface EnviarRepo {
+interface SendRepository {
     /***********************************************************
     JUST WRITE EMPTY FUNCTIONS WITH NO REAL IMPLEMENTATIONS
      ************************************************************/

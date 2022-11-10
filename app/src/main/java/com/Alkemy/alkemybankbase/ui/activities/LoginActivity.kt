@@ -62,8 +62,7 @@ class LoginActivity : AppCompatActivity() {
             binding.etPassword.error = getString(resId)
         }
         viewModel.isLoading.observe(this) {
-            if(it) showLoading()
-            else stopLoading()
+            binding.prgbar.visibility = if (it) View.VISIBLE else View.GONE
         }
     }
 
@@ -175,11 +174,4 @@ class LoginActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun showLoading() {
-        binding.prgbar.visibility = View.VISIBLE
-    }
-
-    private fun stopLoading() {
-        binding.prgbar.visibility = View.GONE
-    }
 }
