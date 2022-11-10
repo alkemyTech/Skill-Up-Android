@@ -74,10 +74,9 @@ class SignUpActivity : AppCompatActivity() {
                 lifecycleScope.launch {
                     viewModel.createUser(etFirstname.text.toString(),etLastname.text.toString(),etEmail.text.toString(),etPassword.text.toString())
                     if (viewModel.userResponse.email.isNotBlank()) {
-                        showAlert("Great!","User was successfully registered")
+                        showDialog("Great!","User was successfully registered")
                         bundle.putString("message", "Sign Up Succeeded")
                         firebaseAnalytics.logEvent("sign_up_success", bundle)
-                        navigateToLogin()
                     } else if(viewModel.userError.isNotBlank()){
                         showAlert("Error",viewModel.userError)
                         bundle.putString("message", "Sign Up Failed")
@@ -154,6 +153,17 @@ class SignUpActivity : AppCompatActivity() {
     private fun navigateToLogin(){
         val intent = Intent(this,LoginActivity::class.java)
         startActivity(intent)
+    }
+
+    private fun showDialog(title: String,message: String){
+        val builder = AlertDialog.Builder(this@SignUpActivity)
+        builder.setTitle(title)
+        builder.setMessage(message)
+        builder.setPositiveButton("Aceptar", DialogInterface.OnClickListener(){
+            dialog,id -> navigateToLogin()
+        })
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
     }
 
     private fun showAlert(title:String,message:String) {
