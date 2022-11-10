@@ -37,10 +37,6 @@ object  AppModule {
 
     @Singleton
     @Provides
-    fun provideSignupRepository(apiService: ApiService) = SignUpRepository(apiService)
-
-    @Singleton
-    @Provides
     fun provideApiService() : ApiService{
         return Retrofit.Builder()
             .baseUrl(BASE_URL)

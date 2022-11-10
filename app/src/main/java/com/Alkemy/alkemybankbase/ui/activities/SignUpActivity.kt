@@ -1,5 +1,6 @@
 package com.Alkemy.alkemybankbase.ui.activities
 
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -29,7 +30,7 @@ class SignUpActivity : AppCompatActivity() {
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupObservers()
-        setuplistener()
+        setupListener()
         firebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
     }
@@ -38,6 +39,14 @@ class SignUpActivity : AppCompatActivity() {
         viewModel.isFormValidLiveData.observe(this) {
             // enable or disable button
             binding.btnSignUp.isEnabled = it
+        }
+        viewModel.firstnameErrorResourceLiveData.observe(this){ resId ->
+            //show firstname error
+            binding.etFirstname.error = getString(resId)
+        }
+        viewModel.lastnameErrorResourceLiveData.observe(this){ resId ->
+            //show lastname error
+            binding.etLastname.error = getString(resId)
         }
         viewModel.confirmPasswordErrorResourceIdLiveData.observe(this) { resId ->
             //show confirm password error
@@ -57,7 +66,7 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun setuplistener() {
+    private fun setupListener() {
         with(binding) {
             btnSignUp.setOnClickListener {
                 var bundle = Bundle()
@@ -66,9 +75,10 @@ class SignUpActivity : AppCompatActivity() {
                 lifecycleScope.launch {
                     viewModel.createUser(etFirstname.text.toString(),etLastname.text.toString(),etEmail.text.toString(),etPassword.text.toString())
                     if (viewModel.userResponse.email.isNotBlank()) {
-                        showCorrectDialog("Great!","User was successfully registered")
+                        showAlert("Great!","User was successfully registered")
                         bundle.putString("message", "Sign Up Succeeded")
                         firebaseAnalytics.logEvent("sign_up_success", bundle)
+                        navigateToLogin()
                     } else if(viewModel.userError.isNotBlank()){
                         showAlert("Error",viewModel.userError)
                         bundle.putString("message", "Sign Up Failed")
@@ -94,8 +104,28 @@ class SignUpActivity : AppCompatActivity() {
 
                 navigateToLogin()
             }
+            etFirstname.afterTextChanged {
+                viewModel.validateForm(
+                    etFirstname.text.toString(),
+                    etLastname.text.toString(),
+                    etEmail.text.toString(),
+                    etPassword.text.toString(),
+                    etConfirmPassword.text.toString()
+                )
+            }
+            etLastname.afterTextChanged {
+                viewModel.validateForm(
+                    etFirstname.text.toString(),
+                    etLastname.text.toString(),
+                    etEmail.text.toString(),
+                    etPassword.text.toString(),
+                    etConfirmPassword.text.toString()
+                )
+            }
             etEmail.afterTextChanged {
                 viewModel.validateForm(
+                    etFirstname.text.toString(),
+                    etLastname.text.toString(),
                     etEmail.text.toString(),
                     etPassword.text.toString(),
                     etConfirmPassword.text.toString()
@@ -103,6 +133,8 @@ class SignUpActivity : AppCompatActivity() {
             }
             etPassword.afterTextChanged {
                 viewModel.validateForm(
+                    etFirstname.text.toString(),
+                    etLastname.text.toString(),
                     etEmail.text.toString(),
                     etPassword.text.toString(),
                     etConfirmPassword.text.toString()
@@ -110,6 +142,8 @@ class SignUpActivity : AppCompatActivity() {
             }
             etConfirmPassword.afterTextChanged {
                 viewModel.validateForm(
+                    etFirstname.text.toString(),
+                    etLastname.text.toString(),
                     etEmail.text.toString(),
                     etPassword.text.toString(),
                     etConfirmPassword.text.toString()
@@ -123,25 +157,16 @@ class SignUpActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun showCorrectDialog(title: String, message: String) {
+    private fun showAlert(title:String,message:String) {
         val builder = AlertDialog.Builder(this@SignUpActivity)
         builder.setTitle(title)
         builder.setMessage(message)
-        builder.setPositiveButton("Aceptar", DialogInterface.OnClickListener{
-            dialog, id -> navigateToLogin()
-        })
+        builder.setOnDismissListener {
+        }
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
 
-    private fun showAlert(title: String, message: String) {
-        val builder = AlertDialog.Builder(this@SignUpActivity)
-        builder.setTitle(title)
-        builder.setMessage(message)
-        builder.setPositiveButton("Aceptar", null)
-        val dialog: AlertDialog = builder.create()
-        dialog.show()
-    }
     private fun showLoading() {
         binding.prgbar.visibility = View.VISIBLE
     }

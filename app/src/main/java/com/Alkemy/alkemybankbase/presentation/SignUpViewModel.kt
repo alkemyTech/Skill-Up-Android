@@ -1,6 +1,5 @@
 package com.Alkemy.alkemybankbase.presentation
 
-import android.content.Context
 import androidx.core.util.PatternsCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,6 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SignUpViewModel @Inject constructor(private val signupRepo : SignUpRepo) : ViewModel() {
 
+    val firstnameErrorResourceLiveData = MutableLiveData<Int>()
+    val lastnameErrorResourceLiveData = MutableLiveData<Int>()
     val emailErrorResourceIdLiveData = MutableLiveData<Int>()
     val passwordErrorResourceIdLiveData = MutableLiveData<Int>()
     val confirmPasswordErrorResourceIdLiveData = MutableLiveData<Int>()
@@ -25,9 +26,16 @@ class SignUpViewModel @Inject constructor(private val signupRepo : SignUpRepo) :
     var userError : String = ""
     val isLoading = MutableLiveData<Boolean>()
 
-
     //Check email & password
-    fun validateForm(email: String, password: String, confirmPassword: String) {
+    fun validateForm(firstname:String,lastname:String,email: String, password: String, confirmPassword: String) {
+        // check if firstname is valid with pattern
+        val firstnamePattern = "^[\\w'-,.][^0-9_!¡?÷?¿/\\+=@#\$%ˆ&*(){}|~<>;:[ ]]{2,}\$"
+        val patternFn = Pattern.compile(firstnamePattern)
+        val isFirstnameValid = patternFn.matcher(firstname).matches()
+        // check if lastname is valid with pattern
+        val lastnamePattern = "^[\\w'-,.][^0-9_!¡?÷?¿/\\+=@#\$%ˆ&*(){}|~<>;:[ ]]{2,}\$"
+        val patternLn = Pattern.compile(lastnamePattern)
+        val isLastnameValid = patternLn.matcher(lastname).matches()
         // check if email is valid with pattern
         val isEmailValid = PatternsCompat.EMAIL_ADDRESS.matcher(email).matches()
         // check if password is valid with pattern
@@ -37,7 +45,15 @@ class SignUpViewModel @Inject constructor(private val signupRepo : SignUpRepo) :
         // check if passwords are the same
         val isConfirmPasswordValid = password == confirmPassword
 
-        if (!isEmailValid){
+        if(!isFirstnameValid){
+            firstnameErrorResourceLiveData.value = R.string.firstname_error
+            isFormValidLiveData.value = false
+        }
+        else if(!isLastnameValid){
+            lastnameErrorResourceLiveData.value = R.string.lastname_error
+            isFormValidLiveData.value = false
+        }
+        else if (!isEmailValid){
             emailErrorResourceIdLiveData.value = R.string.email_error
             isFormValidLiveData.value = false
         }else if (!isPasswordValid){
