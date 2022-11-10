@@ -8,7 +8,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ExpensesViewModel @Inject constructor(private val expensesRepo : ExpensesRepository) : ViewModel() {
 
-    fun validateForm(){
+    fun validateForm(concept:String,amount:Int,date:String,currency:String){
 
     }
 }

@@ -160,9 +160,7 @@ class SignUpActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this@SignUpActivity)
         builder.setTitle(title)
         builder.setMessage(message)
-        builder.setOnDismissListener {
-            it.dismiss()
-        }
+        builder.setPositiveButton("Aceptar",null)
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }

@@ -9,7 +9,4 @@ import javax.inject.Inject
 @HiltViewModel
 class MovementViewModel @Inject constructor(private val movementRepo : MovementRepository) : ViewModel() {
 
-    fun validateForm(){
-
-    }
 }
