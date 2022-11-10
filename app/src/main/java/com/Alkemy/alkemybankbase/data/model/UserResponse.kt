@@ -8,4 +8,8 @@ data class UserResponse(
     val email : String = "",
     val password : String = "",
 ) {
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> e9a55a6 (Added register with retrofit, Added dialogs with errors)

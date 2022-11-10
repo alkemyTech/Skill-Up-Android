@@ -1,13 +1,16 @@
 package com.Alkemy.alkemybankbase.presentation
 
+import android.content.Context
 import androidx.core.util.PatternsCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.Alkemy.alkemybankbase.R
-import com.Alkemy.alkemybankbase.repository.LoginRepo
 import com.Alkemy.alkemybankbase.repository.SignUpRepo
+import com.Alkemy.alkemybankbase.data.model.User
+import com.Alkemy.alkemybankbase.data.model.UserResponse
+import com.Alkemy.alkemybankbase.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.lang.IllegalArgumentException
 import java.util.regex.Pattern
 import javax.inject.Inject
 
@@ -18,6 +21,9 @@ class SignUpViewModel @Inject constructor(private val signupRepo : SignUpRepo) :
     val passwordErrorResourceIdLiveData = MutableLiveData<Int>()
     val confirmPasswordErrorResourceIdLiveData = MutableLiveData<Int>()
     val isFormValidLiveData = MutableLiveData<Boolean>()
+    lateinit var userResponse : UserResponse
+    var userError : String = ""
+    val isLoading = MutableLiveData<Boolean>()
 
 
     //Check email & password
@@ -44,6 +50,27 @@ class SignUpViewModel @Inject constructor(private val signupRepo : SignUpRepo) :
             isFormValidLiveData.value = true
         }
 
+    }
+
+    suspend fun createUser(firstname:String, lastname:String,email:String,password:String){
+        var userResult: Resource<UserResponse>
+        isLoading.value = true
+        val user = User(firstname = firstname, lastname = lastname, email = email,
+            password = password)
+        userResult = signupRepo.createUser(user =  user)
+        userResponse = UserResponse()
+        when(userResult){
+            is Resource.Success -> {
+                userResponse = userResult.data
+                //SessionManager.saveAuthToken(context, userResult.data.accessToken)
+                isLoading.value = false
+            }
+            is Resource.Failure -> {
+                userError = userResult.toString()
+                isLoading.value = false
+            }
+            else -> throw IllegalArgumentException("Illegal Result")
+        }
     }
 
 }
