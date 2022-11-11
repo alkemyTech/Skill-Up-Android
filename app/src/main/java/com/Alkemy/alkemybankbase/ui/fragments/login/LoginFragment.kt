@@ -7,6 +7,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.Alkemy.alkemybankbase.R
 import com.Alkemy.alkemybankbase.databinding.FragmentLoginBinding
 import com.Alkemy.alkemybankbase.utils.controlEmailAndPassword
@@ -55,6 +56,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             val password = binding.edtPasswordLogin.text.toString()
 
             viewModel.auth(email, password)
+            findNavController().navigate(R.id.action_loginFragment_to_menu_main_graph)
         }
 
         // Navigates to Register
@@ -62,6 +64,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             Navigation.findNavController(binding.root)
                 .navigate(R.id.action_loginFragment_to_registerFragment)
         }
+
+
 
     }
 
