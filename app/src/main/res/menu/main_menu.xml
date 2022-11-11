@@ -7,7 +7,7 @@
         android:title="Home" />
 
     <item
-        android:id="@+id/balanceFragment"
+        android:id="@+id/topUpBalanceFragment"
         android:icon="@drawable/ic_baseline_attach_money_24"
         android:title="Top up balance" />
 
