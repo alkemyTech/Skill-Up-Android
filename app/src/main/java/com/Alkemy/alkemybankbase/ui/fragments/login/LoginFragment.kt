@@ -1,6 +1,7 @@
 package com.Alkemy.alkemybankbase.ui.fragments.login
 
 import android.content.Intent
+import android.app.AlertDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -58,8 +59,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             val password = binding.edtPasswordLogin.text.toString()
 
             viewModel.auth(email, password)
-            val intent = Intent(requireContext(), MenuMainHostActivity::class.java)
-            startActivity(intent)
         }
 
         // Navigates to Register
@@ -67,8 +66,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             Navigation.findNavController(binding.root)
                 .navigate(R.id.action_loginFragment_to_registerFragment)
         }
-
-
 
     }
 
@@ -83,6 +80,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     val userRemote = state.user
                     // TODO Navigate to Home
                     requireContext().toast("Token ${userRemote.accessToken}")
+
+                    val intent = Intent(requireContext(), MenuMainHostActivity::class.java)
+                    startActivity(intent)
+
                 }
             }
         }
@@ -90,8 +91,13 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     // Show error alert dialog if login fails
     private fun showError(error: String) {
-        // TODO Show Error Dialog
-        requireContext().toast(error)
+        val dialog: AlertDialog =
+            AlertDialog.Builder(context).setMessage(error).setTitle("Invalid user or password")
+                .setNeutralButton(
+                    "dissmiss"
+                ) { _, _ -> }
+                .create()
+        dialog.show()
     }
 
     // Show progress indicator while loading
