@@ -17,4 +17,10 @@ interface RemoteService {
     @POST("/transactions")
     suspend fun createExpense(@Header("Authorization") AccessToken: String, @Body request: ExpenseRequest): ExpenseResponse
 
+    @POST()
+    suspend fun topUpBalanceUser(
+        @Url url: String,
+        @Body request: ChargeBalanceTopUpRequest
+    ): retrofit2.Call<*>
+
 }
