@@ -30,7 +30,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding = FragmentLoginBinding.bind(view)
 
         //Mockup
-        binding.edtEmailLogin.setText("prueba3@alkemy.com")
+        binding.edtEmailLogin.setText("admin@emir.com")
         binding.edtPasswordLogin.setText("123456")
 
         events()
