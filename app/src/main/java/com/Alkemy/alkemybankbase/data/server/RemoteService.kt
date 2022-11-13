@@ -12,4 +12,6 @@ interface RemoteService {
     @POST("/users")
     suspend fun createUser(@Body request: UserRegisterRequest): UserRegisterResponse
 
+    @GET("/transactions")
+    suspend fun getTransactions(): TransactionResponse
 }

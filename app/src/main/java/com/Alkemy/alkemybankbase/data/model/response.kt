@@ -21,3 +21,10 @@ data class ErrorResponse(
         return "ErrorResponse(error= $error, status= $status)"
     }
 }
+
+data class TransactionsResponse(
+    val amount: String,
+    val concept: String,
+    val date: String,
+    val type: String,
+)

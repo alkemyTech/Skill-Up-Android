@@ -1,13 +1,18 @@
 package com.Alkemy.alkemybankbase
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.AlertDialog
 import android.os.Bundle
-import dagger.hilt.android.AndroidEntryPoint
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.Alkemy.alkemybankbase.adapter.EnviarDineroAdapter
+import com.Alkemy.alkemybankbase.adapter.EnvioDineroProvider
 
-@AndroidEntryPoint
+
 class MenuMainHostActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_menu_main)
-    }
+
+  override fun onCreate(saveInstanceState: AlertDialog.Builder){
+      super.onCreate(saveInstanceState)
+      EnvioDineroProvider.enviarDineroList
+      setContentView(R.layout.activity_menu_main)
+}
 }
