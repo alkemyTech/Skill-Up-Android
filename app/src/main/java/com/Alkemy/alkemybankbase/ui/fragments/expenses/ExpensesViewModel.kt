@@ -49,7 +49,7 @@ class ExpensesViewModel @Inject constructor(private val registerExpense: Registe
             } catch (e: Exception) {
                 _state.value = ExpensesState.Error(e.message.toString())
             } finally {
-                _state.value = ExpensesState.IsLoading(true)
+                _state.value = ExpensesState.IsLoading(false)
             }
 
         }

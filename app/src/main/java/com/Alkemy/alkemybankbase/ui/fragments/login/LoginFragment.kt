@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
@@ -48,6 +49,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             override fun onTextChanged(s: CharSequence, start: Int,
                                        before: Int, count: Int) {
                 btnSingIn.isEnabled = controlEmailAndPassword(edtEmailLogin.text.toString(),edtPasswordLogin.text.toString())
+
+                tilEmailLogin.isErrorEnabled = false
+                tilPasswordLogin.isErrorEnabled = false
             }
         }
         edtEmailLogin.addTextChangedListener(textWatcher)
@@ -89,17 +93,20 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     // Show error alert dialog if login fails
     private fun showError(error: String) {
         val dialog: AlertDialog =
-            AlertDialog.Builder(context).setMessage(error).setTitle("Invalid user or password")
-                .setNeutralButton(
-                    "dissmiss"
+            AlertDialog.Builder(context).setMessage(error).setTitle("Error al intentar el ingreso")
+                .setPositiveButton(
+                    "OK"
                 ) { _, _ -> }
                 .create()
         dialog.show()
+
+        binding.tilEmailLogin.error = getString(R.string.fragment_input_error)
+        binding.tilPasswordLogin.error = getString(R.string.fragment_input_error)
     }
 
     // Show progress indicator while loading
-    private fun showProgress(visibility: Boolean) {
-        // TODO Show Pregress Indicator
+    private fun showProgress(isLoading: Boolean) {
+        binding.progressBar.isVisible = isLoading
     }
 
 }
