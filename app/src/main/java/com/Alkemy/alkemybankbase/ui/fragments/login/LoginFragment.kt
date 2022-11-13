@@ -1,5 +1,6 @@
 package com.Alkemy.alkemybankbase.ui.fragments.login
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -70,7 +71,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         viewModel.state.observe(viewLifecycleOwner) { state ->
             when (state) {
                 LoginViewModel.LoginState.Init -> Unit
-                is LoginViewModel.LoginState.Error -> showError(state.rawResponse)
+                is LoginViewModel.LoginState.Error -> showAlert(state.rawResponse)
                 is LoginViewModel.LoginState.IsLoading -> showProgress(state.isLoading)
                 is LoginViewModel.LoginState.Success -> {
                     val userRemote = state.user
@@ -82,9 +83,13 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     // Show error alert dialog if login fails
-    private fun showError(error: String) {
-        // TODO Show Error Dialog
-        requireContext().toast(error)
+    private fun showAlert(error: String) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Error")
+        builder.setMessage(error)
+        builder.setPositiveButton("Aceptar", null)
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
     }
 
     // Show progress indicator while loading
