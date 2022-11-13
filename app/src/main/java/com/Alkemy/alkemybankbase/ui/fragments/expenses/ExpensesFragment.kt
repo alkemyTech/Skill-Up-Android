@@ -89,7 +89,7 @@ class ExpensesFragment : Fragment(R.layout.fragment_expenses) {
                 // Validates amount, concept and date when inputs are changed and enables
                 // Register Expense Button when all fields are validated
                 btnRegisterExpense.isEnabled =
-                    amount.toString().toInt() > 0 && !concept.isNullOrEmpty() && !date.isNullOrEmpty()
+                    amount.toString() != "0" && !amount.isNullOrEmpty() && !concept.isNullOrEmpty() && !date.isNullOrEmpty()
 
                 tilAmount.isErrorEnabled = false
                 tilConcept.isErrorEnabled = false
