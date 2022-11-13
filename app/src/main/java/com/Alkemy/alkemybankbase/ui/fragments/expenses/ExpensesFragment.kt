@@ -52,7 +52,7 @@ class ExpensesFragment : Fragment(R.layout.fragment_expenses) {
             ExpensesViewModel.ExpensesState.Init -> Unit
             is ExpensesViewModel.ExpensesState.Error -> showError(state.message)
             is ExpensesViewModel.ExpensesState.IsLoading -> handleLoading(state.isLoading)
-            is ExpensesViewModel.ExpensesState.Success -> Unit
+            is ExpensesViewModel.ExpensesState.Success -> showSucces(state.response)
         }
     }
 
@@ -71,6 +71,16 @@ class ExpensesFragment : Fragment(R.layout.fragment_expenses) {
         binding.tilAmount.error = getString(R.string.fragment_input_error)
         binding.tilConcept.error = getString(R.string.fragment_input_error)
         binding.tilDate.error = getString(R.string.fragment_input_error)
+    }
+
+    private fun showSucces(succes: String) {
+        val dialog: AlertDialog =
+            AlertDialog.Builder(context).setMessage(succes).setTitle("Registro exitoso")
+                .setPositiveButton(
+                    "OK"
+                ) { _, _ -> }
+                .create()
+        dialog.show()
     }
 
     private fun events() = with(binding) {
