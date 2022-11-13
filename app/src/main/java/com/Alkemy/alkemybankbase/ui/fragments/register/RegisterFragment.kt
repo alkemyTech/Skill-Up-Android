@@ -53,9 +53,9 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
 
     private fun showError(message: String) {
         val dialog: AlertDialog =
-            AlertDialog.Builder(context).setMessage(message).setTitle("Sign up error")
-                .setNeutralButton(
-                    "retry"
+            AlertDialog.Builder(context).setMessage(message).setTitle("Error al realizar el registro")
+                .setPositiveButton(
+                    "Reintentar"
                 ) { _, _ -> }
                 .create()
         dialog.show()
