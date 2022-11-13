@@ -7,7 +7,7 @@
         android:title="Home" />
 
     <item
-        android:id="@+id/topUpBalanceFragment"
+        android:id="@+id/expensesFragment"
         android:icon="@drawable/ic_baseline_attach_money_24"
         android:title="Gastos" />
 
