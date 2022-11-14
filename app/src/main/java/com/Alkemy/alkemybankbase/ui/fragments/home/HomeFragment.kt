@@ -1,4 +1,4 @@
-package com.Alkemy.alkemybankbase.ui.fragments.transactions
+package com.Alkemy.alkemybankbase.ui.fragments.home
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.Alkemy.alkemybankbase.R
 import com.Alkemy.alkemybankbase.databinding.FragmentHomeBinding
 import com.Alkemy.alkemybankbase.ui.adapters.HomeRVAdapter
+import com.Alkemy.alkemybankbase.ui.fragments.transactions.TransactionsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -43,7 +44,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     val recyclerView: RecyclerView = binding.rvh
                     recyclerView.adapter = adapter
 
-                    adapter.HomeRVAdapter(state.transactions,requireContext())
+                    adapter.homeRVAdapter(state.transactions,requireContext())
                     adapter.notifyDataSetChanged()
                 }
             }
@@ -53,9 +54,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     // Show error alert dialog if login fails
     private fun showError(error: String) {
         val dialog: AlertDialog =
-            AlertDialog.Builder(context).setMessage(error).setTitle("Invalid user or password")
-                .setNeutralButton(
-                    "dissmiss"
+            AlertDialog.Builder(context).setMessage(error).setTitle("Error al cargar la informacion")
+                .setPositiveButton(
+                    "OK"
                 ) { _, _ -> }
                 .create()
         dialog.show()

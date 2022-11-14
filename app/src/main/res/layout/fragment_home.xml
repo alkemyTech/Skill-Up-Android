@@ -200,7 +200,7 @@
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
 
-    <com.google.android.material.card.MaterialCardView
+    <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -214,5 +214,5 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
-    </com.google.android.material.card.MaterialCardView>
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
