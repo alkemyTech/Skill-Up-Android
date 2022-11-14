@@ -1,13 +1,14 @@
 package com.Alkemy.alkemybankbase
 
-import androidx.appcompat.app.AppCompatActivity
+
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.Alkemy.alkemybankbase.databinding.ActivityMenuMainBinding
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
+
+
 class MenuMainHostActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMenuMainBinding

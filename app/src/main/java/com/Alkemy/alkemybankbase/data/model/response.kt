@@ -39,3 +39,4 @@ data class ErrorResponse(
         return "ErrorResponse(error= $error, status= $status)"
     }
 }
+
