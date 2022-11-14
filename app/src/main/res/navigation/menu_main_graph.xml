@@ -15,11 +15,6 @@
         android:label="fragment_transactions"
         tools:layout="@layout/fragment_transactions" />
     <fragment
-        android:id="@+id/paymentsLoadFragment"
-        android:name="com.Alkemy.alkemybankbase.ui.fragments.payments.PaymentsLoadFragment"
-        android:label="fragment_payments_load"
-        tools:layout="@layout/fragment_payments_load" />
-    <fragment
         android:id="@+id/sendMoneyFragment2"
         android:name="com.Alkemy.alkemybankbase.ui.fragments.sendmoney.SendMoneyFragment"
         android:label="fragment_send_money"
@@ -29,4 +24,9 @@
         android:name="com.Alkemy.alkemybankbase.ui.fragments.expenses.ExpensesFragment"
         android:label="expenses"
         tools:layout="@layout/fragment_expenses" />
+    <fragment
+        android:id="@+id/chargeBalanceFragment"
+        android:name="com.Alkemy.alkemybankbase.ui.fragments.chargebalance.ChargeBalanceFragment"
+        android:label="fragment_charge_balance"
+        tools:layout="@layout/fragment_charge_balance" />
 </navigation>

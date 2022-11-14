@@ -17,7 +17,7 @@
         android:title="Movimientos"/>
 
     <item
-        android:id="@+id/paymentsLoadFragment"
+        android:id="@+id/chargeBalanceFragment"
         android:icon="@drawable/ic_baseline_payment_24"
         android:title="Carga de Saldo"/>
 
