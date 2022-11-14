@@ -8,13 +8,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.Alkemy.alkemybankbase.R
-import com.Alkemy.alkemybankbase.data.datasource.RvData
+import com.Alkemy.alkemybankbase.data.model.TransactionModel
 
 class HomeRVAdapter : RecyclerView.Adapter<HomeRVAdapter.ViewHolder>() {
-    var moves: MutableList<RvData> = ArrayList()
+    var moves: MutableList<TransactionModel> = ArrayList()
     lateinit var context: Context
 
-    fun HomeRVAdapter(moves: MutableList<RvData>, context: Context) {
+    fun HomeRVAdapter(moves: MutableList<TransactionModel>, context: Context) {
         this.moves = moves
         this.context = context
     }
@@ -34,20 +34,20 @@ class HomeRVAdapter : RecyclerView.Adapter<HomeRVAdapter.ViewHolder>() {
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val name = view.findViewById(R.id.textView11) as TextView
-        val cuenta = view.findViewById(R.id.textView12) as TextView
+        val id = view.findViewById(R.id.textView11) as TextView
+        val concept = view.findViewById(R.id.textView12) as TextView
         val amount = view.findViewById(R.id.textView13) as TextView
         //val photo = view.findViewById(R.id.img) as ImageView
 
-        fun bind(moves: RvData, context: Context) {
-            name.text = moves.name
-            cuenta.text = moves.cuenta
+        fun bind(moves: TransactionModel, context: Context) {
+            id.text = moves.id.toString()
+            concept.text = moves.concept
             amount.text = moves.amount
             //photo.text = moves.photo
             itemView.setOnClickListener {
                 Toast.makeText(
                     context,
-                    moves.name,
+                    moves.id,
                     Toast.LENGTH_SHORT
                 ).show()
             }
