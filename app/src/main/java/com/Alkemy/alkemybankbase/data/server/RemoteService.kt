@@ -1,8 +1,7 @@
 package com.Alkemy.alkemybankbase.data.server
 
 import com.Alkemy.alkemybankbase.data.model.*
-import retrofit2.http.Body
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface RemoteService {
 
@@ -13,5 +12,15 @@ interface RemoteService {
     suspend fun createUser(@Body request: UserRegisterRequest): UserRegisterResponse
 
     @GET("/transactions")
-    suspend fun getTransactions(): TransactionResponse
+    suspend fun getTransactions(@Header("Authorization") AccessToken: String): TransactionsResponse
+
+    @POST("/transactions")
+    suspend fun createExpense(@Header("Authorization") AccessToken: String, @Body request: ExpenseRequest): ExpenseResponse
+
+    @POST()
+    suspend fun topUpBalanceUser(
+        @Url url: String,
+        @Body request: ChargeBalanceTopUpRequest
+    ): retrofit2.Call<*>
+
 }

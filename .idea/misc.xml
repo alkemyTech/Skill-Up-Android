@@ -3,11 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+<<<<<<< HEAD
         <entry key="..\:/Users/Ale/Desktop/FORKPROYECT/Skill-Up-Android/app/src/main/res/layout/activity_menu_main.xml" value="0.3625" />
         <entry key="..\:/Users/Ale/Desktop/FORKPROYECT/Skill-Up-Android/app/src/main/res/layout/fragment_balance.xml" value="0.3625" />
         <entry key="..\:/Users/Ale/Desktop/FORKPROYECT/Skill-Up-Android/app/src/main/res/layout/fragment_send_money.xml" value="0.3625" />
         <entry key="..\:/Users/Ale/Desktop/FORKPROYECT/Skill-Up-Android/app/src/main/res/layout/fragment_transactions.xml" value="0.3625" />
         <entry key="..\:/Users/Ale/Desktop/FORKPROYECT/Skill-Up-Android/app/src/main/res/layout/transaction_item.xml" value="0.3614583333333333" />
+=======
+        <entry key="..\:/Juan/KotlinProjectos/Skill-Up-Android/app/src/main/res/layout/activity_main.xml" value="0.23854166666666668" />
+        <entry key="..\:/Juan/KotlinProjectos/Skill-Up-Android/app/src/main/res/layout/fragment_balance.xml" value="0.28072916666666664" />
+        <entry key="..\:/Juan/KotlinProjectos/Skill-Up-Android/app/src/main/res/layout/fragment_home.xml" value="0.28072916666666664" />
+        <entry key="..\:/Juan/KotlinProjectos/Skill-Up-Android/app/src/main/res/layout/fragment_movements.xml" value="0.28072916666666664" />
+        <entry key="..\:/Juan/KotlinProjectos/Skill-Up-Android/app/src/main/res/layout/home.xml" value="0.18697916666666667" />
+        <entry key="..\:/Juan/KotlinProjectos/Skill-Up-Android/app/src/main/res/layout/home_partial.xml" value="0.21422101449275363" />
+        <entry key="..\:/Juan/KotlinProjectos/Skill-Up-Android/app/src/main/res/layout/item_home_activity.xml" value="0.21422101449275363" />
+        <entry key="..\:/Juan/KotlinProjectos/Skill-Up-Android/app/src/main/res/layout/item_movimientos.xml" value="0.21422101449275363" />
+>>>>>>> develop
       </map>
     </option>
   </component>

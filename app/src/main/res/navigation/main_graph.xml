@@ -22,10 +22,14 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_menu_main_graph"
+            app:destination="@id/menu_main_graph" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.Alkemy.alkemybankbase.ui.fragments.register.RegisterFragment"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" />
+    <!--<include app:graph="@navigation/menu_main_graph" />-->
 </navigation>

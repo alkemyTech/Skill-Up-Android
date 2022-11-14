@@ -1,18 +1,25 @@
 package com.Alkemy.alkemybankbase
 
-import android.app.AlertDialog
+
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.Alkemy.alkemybankbase.adapter.EnviarDineroAdapter
-import com.Alkemy.alkemybankbase.adapter.EnvioDineroProvider
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
+import com.Alkemy.alkemybankbase.databinding.ActivityMenuMainBinding
+
 
 
 class MenuMainHostActivity : AppCompatActivity() {
 
-  override fun onCreate(saveInstanceState: AlertDialog.Builder){
-      super.onCreate(saveInstanceState)
-      EnvioDineroProvider.enviarDineroList
-      setContentView(R.layout.activity_menu_main)
-}
+    private lateinit var binding: ActivityMenuMainBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMenuMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.menu_main_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+        binding.bottomNavigationView.setupWithNavController(navController)
+    }
 }

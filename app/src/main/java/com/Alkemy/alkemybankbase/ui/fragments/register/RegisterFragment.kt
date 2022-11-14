@@ -1,6 +1,7 @@
 package com.Alkemy.alkemybankbase.ui.fragments.register
 
 import android.R.attr.editable
+import android.app.AlertDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -43,8 +44,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 is RegisterViewModel.RegisterUserState.Error -> showError(state.message)
                 is RegisterViewModel.RegisterUserState.IsLoading -> showProgress(state.isLoading)
                 is RegisterViewModel.RegisterUserState.SuccessRegister -> {
-                    val userRemote = state.user
-                    requireContext().toast("Registro Exitoso: ${userRemote.first_name} ${userRemote.last_name}, Bienvenido")
+
                     requireActivity().onBackPressed()
                 }
             }
@@ -52,9 +52,13 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     }
 
     private fun showError(message: String) {
-        message.forEach {
-        }
-        binding.root.context.toast(message)
+        val dialog: AlertDialog =
+            AlertDialog.Builder(context).setMessage(message).setTitle("Error al realizar el registro")
+                .setPositiveButton(
+                    "Reintentar"
+                ) { _, _ -> }
+                .create()
+        dialog.show()
     }
 
     private fun showProgress(visibility:Boolean) = with(binding){

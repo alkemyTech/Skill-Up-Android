@@ -1,12 +1,17 @@
 package com.Alkemy.alkemybankbase.ui.fragments.login
 
+import android.content.Intent
+import android.app.AlertDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import com.Alkemy.alkemybankbase.MenuMainHostActivity
 import com.Alkemy.alkemybankbase.R
 import com.Alkemy.alkemybankbase.databinding.FragmentLoginBinding
 import com.Alkemy.alkemybankbase.utils.controlEmailAndPassword
@@ -26,8 +31,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding = FragmentLoginBinding.bind(view)
 
         //Mockup
-        //binding.edtEmailLogin.setText("prueba3@alkemy.com")
-        //binding.edtPasswordLogin.setText("123456")
+//        binding.edtEmailLogin.setText("admin@emir.com")
+//        binding.edtPasswordLogin.setText("123456")
 
         events()
         setupObservers()
@@ -44,6 +49,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             override fun onTextChanged(s: CharSequence, start: Int,
                                        before: Int, count: Int) {
                 btnSingIn.isEnabled = controlEmailAndPassword(edtEmailLogin.text.toString(),edtPasswordLogin.text.toString())
+
+                tilEmailLogin.isErrorEnabled = false
+                tilPasswordLogin.isErrorEnabled = false
             }
         }
         edtEmailLogin.addTextChangedListener(textWatcher)
@@ -73,9 +81,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 is LoginViewModel.LoginState.Error -> showError(state.rawResponse)
                 is LoginViewModel.LoginState.IsLoading -> showProgress(state.isLoading)
                 is LoginViewModel.LoginState.Success -> {
-                    val userRemote = state.user
-                    // TODO Navigate to Home
-                    requireContext().toast("Token ${userRemote.accessToken}")
+
+                    val intent = Intent(requireContext(), MenuMainHostActivity::class.java)
+                    startActivity(intent)
+
                 }
             }
         }
@@ -83,13 +92,21 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     // Show error alert dialog if login fails
     private fun showError(error: String) {
-        // TODO Show Error Dialog
-        requireContext().toast(error)
+        val dialog: AlertDialog =
+            AlertDialog.Builder(context).setMessage(error).setTitle("Error al intentar el ingreso")
+                .setPositiveButton(
+                    "OK"
+                ) { _, _ -> }
+                .create()
+        dialog.show()
+
+        binding.tilEmailLogin.error = getString(R.string.fragment_input_error)
+        binding.tilPasswordLogin.error = getString(R.string.fragment_input_error)
     }
 
     // Show progress indicator while loading
-    private fun showProgress(visibility: Boolean) {
-        // TODO Show Pregress Indicator
+    private fun showProgress(isLoading: Boolean) {
+        binding.progressBar.isVisible = isLoading
     }
 
 }

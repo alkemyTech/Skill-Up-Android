@@ -18,5 +18,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding = FragmentHomeBinding.bind(view)
     }
 
+    fun dev(){
+
+    }
 
 }

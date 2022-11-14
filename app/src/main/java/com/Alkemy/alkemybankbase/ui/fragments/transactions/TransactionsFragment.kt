@@ -1,60 +1,75 @@
 package com.Alkemy.alkemybankbase.ui.fragments.transactions
 
+import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.Alkemy.alkemybankbase.MenuMainHostActivity
 import com.Alkemy.alkemybankbase.R
+import com.Alkemy.alkemybankbase.databinding.FragmentLoginBinding
+import com.Alkemy.alkemybankbase.databinding.FragmentTransactionsBinding
+import com.Alkemy.alkemybankbase.ui.adapters.LastMovementsAdapter
+import com.Alkemy.alkemybankbase.ui.fragments.login.LoginViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+@AndroidEntryPoint
+class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [TransactionsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class TransactionsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var binding: FragmentTransactionsBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private val transactionsViewModel: TransactionsViewModel by viewModels()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding = FragmentTransactionsBinding.bind(view)
+
+        transactionsViewModel.getTransactions()
+
+        setupObservers()
+    }
+
+    private fun setupObservers() {
+        transactionsViewModel.state.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                TransactionsViewModel.TransactionsState.Init -> Unit
+                is TransactionsViewModel.TransactionsState.Error -> showError(state.rawResponse)
+                is TransactionsViewModel.TransactionsState.IsLoading -> showProgress(state.isLoading)
+                is TransactionsViewModel.TransactionsState.Success -> {
+
+                    val adapter = LastMovementsAdapter()
+
+                    binding.rvListaMovimientos.layoutManager = LinearLayoutManager(requireContext())
+                    val recyclerView: RecyclerView = binding.rvListaMovimientos
+                    recyclerView.adapter = adapter
+
+                    adapter.lastMovementsAdapter(state.transactions,requireContext())
+                    adapter.notifyDataSetChanged()
+                }
+            }
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_transactions, container, false)
+    // Show error alert dialog if login fails
+    private fun showError(error: String) {
+        val dialog: AlertDialog =
+            AlertDialog.Builder(context).setMessage(error).setTitle("Invalid user or password")
+                .setNeutralButton(
+                    "dissmiss"
+                ) { _, _ -> }
+                .create()
+        dialog.show()
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment TransactionsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            TransactionsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    // Show progress indicator while loading
+    private fun showProgress(visibility: Boolean) {
+        // TODO Show Pregress Indicator
     }
 }
