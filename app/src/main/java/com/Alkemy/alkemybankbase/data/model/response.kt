@@ -40,9 +40,3 @@ data class ErrorResponse(
     }
 }
 
-data class TransactionsResponse(
-    val amount: String,
-    val concept: String,
-    val date: String,
-    val type: String,
-)
