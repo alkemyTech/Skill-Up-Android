@@ -211,9 +211,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvh"
-            android:layout_margin="16dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/item_home_activity" />
+            android:layout_height="match_parent"
+            />
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
